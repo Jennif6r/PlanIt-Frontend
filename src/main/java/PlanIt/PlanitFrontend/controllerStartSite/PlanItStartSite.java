@@ -1,7 +1,6 @@
 package PlanIt.PlanitFrontend.controllerStartSite;
 
 import org.springframework.stereotype.Controller;
-//import org.apache.maven.model.Model;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
