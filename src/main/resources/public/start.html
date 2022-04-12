@@ -1,7 +1,70 @@
 <!DOCTYPE html>
 <header>
-
+    <title>PlanIt</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">    
+    <link rel="stylesheet" href="css/plan-it.css">
 </header>
+
 <body>
-    <h1>PlanIt</h1>
+    <h1><img src="img/icon/logo_small_icon_only_inverted.png" width="40px"> PlanIt </h1>
+    <hr>
+    <div class="tableFiveColums">
+        <!-- <p><i class="fa-solid fa-calendar-days"></i></p> -->
+        <div class="first">
+            <p id="imgCalander"><img src="img/calendar.jpg" height="50px" id="imgCalendar" class="second"></p> 
+        </div>
+        <div class="second">
+            <p> <input type="date" id="datePicker" class="center"></p>
+        </div>
+        <div class="third">
+            <p id="timePeriod"><button>&lt;</button> 11.04.2022 - 17.04.2022 <button>&gt;</button></p>
+        </div>
+        <div class="fourth">
+            <button id="createEvent">add new appointment</button> 
+        </div>
+    </div>
+    <hr>
+    <div class="divWeek">
+        <div class="firstline first"><p class="firstline">Time</p></div>
+        <div class="firstline second"><p class="firstline">Monday</p></div>
+        <div class="firstline third"><p class="firstline">Tuesday</p></div>
+        <div class="firstline fourth"><p class="firstline">Wednesday</p></div>
+        <div class="firstline fifth"><p class="firstline">Thursday</p></div>
+        <div class="firstline sixt"><p class="firstline">Friday</p></div>
+        <div class="firstline sevent"><p class="firstline">Saturday</p></div>
+        <div class="firstline eight"><p class="firstline">Sunday</p></div>
+    </div>
+    <div class="divWeek"
+        <div class="first">
+            <ul>
+                <li>1 AM:</li>
+                <li>2 AM:</li>
+                <li>3 AM:</li>
+                <li>4 AM:</li>
+                <li>5 AM:</li>
+                <li>6 AM:</li>
+                <li>7 AM:</li>
+                <li>8 AM:</li>
+                <li>9 AM:</li>
+                <li>10 AM:</li>
+                <li>11 AM:</li>
+                <li>12 AM:</li>
+                <li>1 PM:</li>
+                <li>2 PM:</li>
+                <li>3 PM:</li>
+                <li>4 PM:</li>
+                <li>5 PM:</li>
+                <li>6 PM:</li>
+                <li>7 PM:</li>
+                <li>8 PM:</li>
+                <li>9 PM:</li>
+                <li>10 PM:</li>
+                <li>11 PM:</li>
+                <li>12 PM:</li>
+            </ul>
+        </div>
+    </div>
+
 </body>
