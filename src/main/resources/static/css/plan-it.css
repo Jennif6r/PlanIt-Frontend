@@ -110,7 +110,12 @@ li {
     padding: 20px;
     list-style-type: none;
     text-align: right;
+    background-color: lightgray;
 }
 
-time
+ul {
+    padding-left: 0;
+    margin-top: 0;
+}
+
 
