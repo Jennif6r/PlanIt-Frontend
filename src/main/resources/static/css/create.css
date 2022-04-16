@@ -4,6 +4,12 @@ p {
 
 h1 {
     text-align: center;
+    font-size: 300%;
+    color: orangered;
+}
+
+h2 {
+    text-align: center;
     text-decoration: underline;
 }
 
