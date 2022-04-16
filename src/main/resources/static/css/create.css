@@ -1,0 +1,33 @@
+p {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+.second {
+    grid-column: 2/3;
+    grid-row: 1;
+}
+
+.third {
+    grid-column: 3/4;
+    grid-row: 1;
+}
+
+input {
+    margin-top: 15px;
+}
+
+#submit {
+    margin-top: 16px;
+}
