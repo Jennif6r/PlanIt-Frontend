@@ -1,11 +1,12 @@
-package PlanIt.PlanitFrontend.controllerStartSite;
+package PlanIt.PlanitFrontend.controller;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
-//import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-//import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import main.AppointmentJSON;
 
 @RestController
 public class PlanItController {
@@ -13,5 +14,11 @@ public class PlanItController {
 	@RequestMapping(method=RequestMethod.POST, value="/test")
 	public String getTest(@ModelAttribute("startdate") String start, @ModelAttribute("enddate") String end) {
 		return start + " " + end;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/create")
+	public AppointmentJSON createAppointment(@RequestBody AppointmentJSON appointment){
+		// der Code
+		return appointment;
 	}
 }
