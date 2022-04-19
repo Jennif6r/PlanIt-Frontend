@@ -19,21 +19,16 @@ public class PlanItController {
 	Persistence fp = new FilePersistence();
 	
 	@RequestMapping(method=RequestMethod.POST, value="/test")
-	public List<Appointment> getAppointmentsInWeek(@ModelAttribute("startdate") String start, @ModelAttribute("enddate") String end) {
+	public List<Appointment> getAppointmentsInTimespan(@ModelAttribute("startdate") String start, @ModelAttribute("enddate") String end) {
 //		load file into Arraylist
 		ArrayList<Appointment> appointmentList;
 		try {
-			appointmentList = new ArrayList<>(fp.loadAppointments());
+//			get filtered list from persistence
+			appointmentList = new ArrayList<>(fp.loadAppointmentsInTimespan(start, end));
 		} catch (IOException e) {
-//			if IOException, return empty List
 			e.printStackTrace();
-			return appointmentList = new ArrayList<Appointment>();
+			return null;
 		}
-//		filter by Week
-//		given: Date of Monday and Sunday
-//		wanted: all appointments within that week
-		appointmentList.stream().filter(appointment -> appointment.getStart().after(new Date(start)));
-		appointmentList.stream().filter(appointment -> appointment.getStart().before(new Date(end)));
 		return appointmentList;
 	}
 	
