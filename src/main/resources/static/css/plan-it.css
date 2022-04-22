@@ -6,8 +6,8 @@ h1 {
 
 p {
     font-size: 125%;
-    margin-top: 10%;
-    /* text-align: center; */
+    padding-top: 10%;
+    text-align: center;
 }
 
 /* to set the table in the navigationbar */
@@ -75,6 +75,112 @@ p {
     font: 150%;
 }
 
+.firstfirst {
+    grid-column: 1/2;
+    grid-row: 1;
+}
+
+.firstsecond {
+    grid-column: 1/2;
+    grid-row: 2;
+}
+
+.firstthird {
+    grid-column: 1/2;
+    grid-row: 3;
+}
+
+
+.firstfourth{
+    grid-column: 1/2;
+    grid-row: 4;
+} 
+.firstfifth {
+    grid-column: 1/2;
+    grid-row: 5;
+}
+.firstsixt {
+    grid-column: 1/2;
+    grid-row: 6;
+} 
+.firstsevent {
+    grid-column: 1/2;
+    grid-row: 7;
+}
+.firsteight {
+    grid-column: 1/2;
+    grid-row: 8;
+}
+
+.firstnine {
+    grid-column: 1/2;
+    grid-row: 9;
+}
+
+.firsttenth {
+    grid-column: 1/2;
+    grid-row: 10;
+}
+
+.firsteleven {
+    grid-column: 1/2;
+    grid-row: 11;
+}
+
+.firsttwelve {
+    grid-column: 1/2;
+    grid-row: 12;
+}
+
+.firstthirhteen {
+    grid-column: 1/2;
+    grid-row: 13;
+} 
+.firstfourtheen {
+    grid-column: 1/2;
+    grid-row: 14;
+}
+.firstfiftteen {
+    grid-column: 1/2;
+    grid-row: 15;
+}
+
+.firstsixteen {
+    grid-column: 1/2;
+    grid-row: 16;
+}
+.firstseventeen {
+    grid-column: 1/2;
+    grid-row: 17;
+}
+.firsteightteen {
+    grid-column: 1/2;
+    grid-row: 18;
+}
+.firstnineteen {
+    grid-column: 1/2;
+    grid-row: 19;
+}
+.firsttwenty {
+    grid-column: 1/2;
+    grid-row: 20;
+}
+.firsttwentyone {
+    grid-column: 1/2;
+    grid-row: 21;
+}
+.firsttwentytwo {
+    grid-column: 1/2;
+    grid-row: 22;
+}
+.firsttwentythird {
+    grid-column: 1/2;
+    grid-row: 23;
+}
+.firsttwentyfour {
+    grid-column: 1/2;
+    grid-row: 24;
+}
 
 /* all the other things */
 .center { 
@@ -104,6 +210,8 @@ p {
     margin-left:25%
 
 }
+
+first
 
 li {
     border-bottom: 5px;

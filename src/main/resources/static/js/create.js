@@ -55,7 +55,7 @@ const appointment = {
 function sendRequest(){
     const appointment = {
         "title": eventName,
-        // "category": category,
+        "category": category,
         "startdate": startDate,
         "starttime": startTime,
         "endtime": endTime,
