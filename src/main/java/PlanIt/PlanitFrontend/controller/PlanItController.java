@@ -19,7 +19,7 @@ public class PlanItController {
 	Persistence fp = new FilePersistence();
 	
 	@RequestMapping(method=RequestMethod.POST, value="/getAppointments")
-	public List<Appointment> getAppointmentsInTimespan(@ModelAttribute("startdate") String start, @ModelAttribute("enddate") String end) {
+	public List<Appointment> getAppointmentModelsInTimespan(@ModelAttribute("startdate") String start, @ModelAttribute("enddate") String end) {
 //		load file into Arraylist
 		ArrayList<Appointment> appointmentList;
 		try {
