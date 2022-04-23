@@ -15,7 +15,7 @@
 	<description>PlanIt Frontend</description>
 	<packaging>jar</packaging>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -41,6 +41,11 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!--  <dependency>
+		    <groupId>com.fasterxml.jackson.datatype</groupId>
+		    <artifactId>jackson-datatype-jsr310</artifactId>
+		    <version>2.11.3</version>
+		</dependency>-->
 	</dependencies>
 
 	<build>

@@ -19,12 +19,12 @@ public class PlanItController {
 	Persistence fp = new FilePersistence();
 	
 	@RequestMapping(method=RequestMethod.POST, value="/getAppointments")
-	public List<Appointment> getAppointmentModelsInTimespan(@ModelAttribute("startdate") String start, @ModelAttribute("enddate") String end) {
+	public List<AppointmentModel> getAppointmentModelsInTimespan(@ModelAttribute("startdate") String start, @ModelAttribute("enddate") String end) {
 //		load file into Arraylist
-		ArrayList<Appointment> appointmentList;
+		ArrayList<AppointmentModel> appointmentList;
 		try {
 //			get filtered list from persistence
-			appointmentList = new ArrayList<>(fp.loadAppointmentsInTimespan(start, end));
+			appointmentList = new ArrayList<>(fp.loadAppointmentsAsAppointmentModelsInTimespan(start, end));
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
