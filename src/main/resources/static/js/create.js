@@ -42,15 +42,8 @@ function readInput(){
 }
 
 function checkCorrectness(){
+    
 }
-
-let foo;
-let lorem;
-
-const appointment = {
-    "foo": "bla",
-    "lorem": "ipsum"
-};
 
 function sendRequest(){
     const appointment = {

@@ -211,9 +211,7 @@ p {
 
 }
 
-first
-
-li {
+/* li {
     border-bottom: 5px;
     padding: 20px;
     list-style-type: none;
@@ -224,7 +222,7 @@ li {
 ul {
     padding-left: 0;
     margin-top: 0;
-}
+} */
 
 #createApointment {
     background-color: lightgrey;
@@ -236,5 +234,6 @@ ul {
     margin-top: 50%;
     font-size: 150%;
 }
+
 
 
