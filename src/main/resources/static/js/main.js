@@ -1,8 +1,12 @@
 "use strict";
 let classes = ["first", "second" , "third", "fourth", "fifth", "sixt", "sevent", "eight", "nine", "tenth", "eleven", "twelve", "thirhteen", "fourtheen", "fiftteen", "sixteen", "seventeen", "eightteen", "nineteen", "twenty", "twentyone", "twentytwo", "twentythird", "twentyfour"]
 let timeperiod;
+let months30Days = ["3", "5", "8", "10"]
+let months31Days = ["0", "2", "4", "6", "7", "9"]
+let url;
+
 setLeftTable()
-// setWeekTable()
+setWeekTable()
 
 document.getElementById("datePicker").addEventListener("change", changeDate)
 changeDate()
@@ -13,7 +17,7 @@ function getAppointments(){
 
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST","/getAppointments?startdate=2022-04-18&enddate=2022-04-24");
+    xhr.open("POST","/getAppointments?startdate=2022-04-17&enddate=2022-04-24");
 
     xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -69,13 +73,14 @@ function changeDate() {
     console.log(askDate)
     let day = askDate.getDay()
     console.log(day)
-    let url = geturl(day, askDate)
-
+    url = geturl(day, askDate)
 }
 
 function geturl(day, askDate){
     let startDay = getStartDay(day, askDate)
-    console.log(startDay)
+    let endDay = getEndDay(startDay)
+    console.log(startDay + "\n" + endDay) 
+    return "/getAppointments?startdate=" + startDay + "&enddate=" + endDay
 }
 
 function getStartDay(day, askDate) {
@@ -90,7 +95,6 @@ function getStartDay(day, askDate) {
             let dayOfMonth
             if (day == 0){
                 dayOfMonth = askDate.getDate() - 5;
-
             }else{
                 dayOfMonth = askDate.getDate() - day + 2;
             }
@@ -102,12 +106,38 @@ function getStartDay(day, askDate) {
                 askDate.getMonth(),
                 dayOfMonth
                 ).toISOString();
-            let arrayDate = helpdate.split("T");
-            return arrayDate[0];
+            let arrayDate = helpdate.split("T")
+            return arrayDate[0]
         }
-        //monatsweechsel
+        //monatswechsel
         else{
-            
+            console.log("else")
+            let helpMonth = (askDate.getMonth() - 1).toString()
+            let actualDay = askDate.getDate()
+            if (months31Days.includes(helpMonth)){
+                return getMonthoverflow(31, actualDay, askDate)
+            }else if(months30Days.includes(helpMonth)){
+                return getMonthoverflow(30, actualDay, askDate)
+            }else if(helpMonth == "11") {
+                let helpdate = new Date(askDate.getFullYear()-1, 1, actualDay + 31 -6)
+            }else {
+
+            }
         }
     }
+}
+
+function getMonthoverflow(number, actualDay, askDate){
+    let helpdate = new Date(askDate.getFullYear(), askDate.getMonth() -1, actualDay + number - 4 ).toISOString()
+    let arrayDate = helpdate.split("T")
+    return arrayDate[0]    
+}
+
+function getEndDay(startDay){
+    console.log(startDay)   
+    let helpDate = new Date(startDay)
+    console.log(helpDate)
+    helpDate = new Date(helpDate.getFullYear(), helpDate.getMonth(), helpDate.getDate()+7).toISOString()
+    let arrayDate = helpDate.split("T")
+    return arrayDate[0]
 }
