@@ -1,5 +1,6 @@
 package PlanIt.PlanitFrontend.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,8 @@ import main.*;
 
 @RestController
 public class PlanItController {
-	Persistence fp = new FilePersistence();
+	Persistence fp = new FilePersistence(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "Appointments by PlanIt",
+			 File.separator + "appointments.json");
 	
 	@RequestMapping(method=RequestMethod.POST, value="/getAppointments")
 	public List<AppointmentModel> getAppointmentModelsInTimespan(@ModelAttribute("startdate") String start, @ModelAttribute("enddate") String end) {
