@@ -38,4 +38,11 @@ public class PlanItController {
 		// 
 		return appointment;
 	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/get")
+	public List<AppointmentModel> getAppointments(@ModelAttribute("date") String date){
+		
+		
+		return null;
+	}
 }
