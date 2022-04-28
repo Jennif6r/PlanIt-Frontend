@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import main.AppointmentModel;
-import main.*;
+import main.FilePersistence;
 
 @RestController
 public class PlanItController {
-	Persistence fp = new FilePersistence(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "Appointments by PlanIt",
+	FilePersistence fp = new FilePersistence(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "Appointments by PlanIt",
 			 File.separator + "appointments.json");
 	
 	@RequestMapping(method=RequestMethod.POST, value="/getAppointments")
