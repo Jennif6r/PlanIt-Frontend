@@ -4,9 +4,11 @@ let timeperiod;
 let months30Days = ["3", "5", "8", "10"]
 let months31Days = ["0", "2", "4", "6", "7", "9"]
 let url;
+let appointments = new Array()
 
 setLeftTable()
 setWeekTable()
+
 
 document.getElementById("datePicker").addEventListener("change", changeDate)
 changeDate()
@@ -24,9 +26,31 @@ function getAppointments(){
     xhr.send(JSON.stringify(data));
 
     xhr.onload = function() {
-        console.log(xhr.status);
-        console.log(xhr.response);
+        // console.log(xhr.status);
+        // console.log(xhr.response);
+        appointments = JSON.parse(xhr.response)
+        // let number = appointments.lenght
+        // console.log(number)
+        // appointments.foreach(function (appointment) {
+        //     console.log(appointment)
+        // })
+        // for (let i = 0; i<number; i++){
+        //     console.log(appointments[1])
+        // }
+        console.log(appointments)
+        console.log(appointments[0])
+        setRightTableElement(appointments[0])
     }
+}
+
+function setRightTableElement(appointment){
+    console.log(appointment)
+    let tableclass = "thirdeight"
+    let template = document.getElementById("templateAppointment").content
+    let copyHTML = document.importNode(template, true)
+    copyHTML.querySelector("#appointment").textContent = appointment.title
+    copyHTML.querySelector("#appointment").classList.add(tableclass)
+    document.getElementById("week").appendChild(copyHTML)
 }
 
 function setLeftTable() {
@@ -68,18 +92,18 @@ function setWeekTable() {
 
 function changeDate() {
     let inputtime = document.getElementById("datePicker").value
-    console.log(inputtime)
+    // console.log(inputtime)
     let askDate = new Date(inputtime)
-    console.log(askDate)
+    // console.log(askDate)
     let day = askDate.getDay()
-    console.log(day)
+    // console.log(day)
     url = geturl(day, askDate)
 }
 
 function geturl(day, askDate){
     let startDay = getStartDay(day, askDate)
     let endDay = getEndDay(startDay)
-    console.log(startDay + "\n" + endDay) 
+    // console.log(startDay + "\n" + endDay) 
     return "/getAppointments?startdate=" + startDay + "&enddate=" + endDay
 }
 
@@ -111,7 +135,7 @@ function getStartDay(day, askDate) {
         }
         //monatswechsel
         else{
-            console.log("else")
+            // console.log("else")
             let helpMonth = (askDate.getMonth() - 1).toString()
             let actualDay = askDate.getDate()
             if (months31Days.includes(helpMonth)){
@@ -134,9 +158,9 @@ function getMonthoverflow(number, actualDay, askDate){
 }
 
 function getEndDay(startDay){
-    console.log(startDay)   
+    // console.log(startDay)   
     let helpDate = new Date(startDay)
-    console.log(helpDate)
+    // console.log(helpDate)
     helpDate = new Date(helpDate.getFullYear(), helpDate.getMonth(), helpDate.getDate()+7).toISOString()
     let arrayDate = helpDate.split("T")
     return arrayDate[0]

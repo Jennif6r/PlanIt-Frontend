@@ -181,6 +181,12 @@ p {
     grid-column: 1/2;
     grid-row: 24;
 }
+.thirdeight {
+    grid-column: 3/4;
+    grid-row: 8;
+    background-color: cornflowerblue;
+    border-radius: 20px;
+}
 
 /* all the other things */
 .center { 
