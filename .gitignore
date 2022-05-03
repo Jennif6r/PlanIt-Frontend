@@ -4,6 +4,8 @@ mvn*
 .mvn
 .classpath
 .settings
+
+src/main/resources/static/js/jquery.js
 # !.mvn/wrapper/maven-wrapper.jar
 # !**/src/main/**/target/
 # !**/src/test/**/target/
