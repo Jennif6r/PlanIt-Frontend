@@ -241,5 +241,13 @@ ul {
     font-size: 150%;
 }
 
+#appointment {
+    text-align: left;
+    padding: 10%;
+}
 
 
+
+#time {
+    padding:10%;
+}

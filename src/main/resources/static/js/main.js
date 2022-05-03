@@ -4,7 +4,7 @@ let timeperiod;
 let months30Days = ["3", "5", "8", "10"]
 let months31Days = ["0", "2", "4", "6", "7", "9"]
 let url;
-let appointments = new Array()
+let appointments = new Object()
 
 setLeftTable()
 setWeekTable()
@@ -26,31 +26,38 @@ function getAppointments(){
     xhr.send(JSON.stringify(data));
 
     xhr.onload = function() {
-        // console.log(xhr.status);
-        // console.log(xhr.response);
         appointments = JSON.parse(xhr.response)
-        // let number = appointments.lenght
-        // console.log(number)
-        // appointments.foreach(function (appointment) {
-        //     console.log(appointment)
-        // })
-        // for (let i = 0; i<number; i++){
-        //     console.log(appointments[1])
-        // }
+        let number = Object.sizes(appointments)
+        for (let i = 0; i<number; i++){
+            setRightTableElement(appointments[i])
+        }
         console.log(appointments)
-        console.log(appointments[0])
-        setRightTableElement(appointments[0])
     }
 }
 
 function setRightTableElement(appointment){
-    console.log(appointment)
-    let tableclass = "thirdeight"
+    let tableclass = getTableClass(appointment.startdate, appointment.starttime)
+    console.log(tableclass)
     let template = document.getElementById("templateAppointment").content
     let copyHTML = document.importNode(template, true)
-    copyHTML.querySelector("#appointment").textContent = appointment.title
+    copyHTML.querySelector("#appointment").textContent = appointment.starttime + "-" + appointment.endtime + " " + appointment.title
     copyHTML.querySelector("#appointment").classList.add(tableclass)
     document.getElementById("week").appendChild(copyHTML)
+}
+
+function getTableClass(day, time) {
+    return getFristClass(day)+getSecondClass(time)
+}
+
+function getFristClass(day) {
+    let Day = new Date(day).getDay()
+    return classes[Day]
+}
+
+function getSecondClass(time) {
+    let help = time.split(":")
+    let number = parseInt(help[0])
+    return classes[number-1]
 }
 
 function setLeftTable() {
@@ -165,3 +172,13 @@ function getEndDay(startDay){
     let arrayDate = helpDate.split("T")
     return arrayDate[0]
 }
+
+//Count elements of Objekt
+Object.sizes = function(obj){
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key))
+             size++;
+    }
+    return size;
+};
