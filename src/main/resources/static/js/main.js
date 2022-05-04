@@ -37,12 +37,27 @@ function getAppointments(){
 
 function setRightTableElement(appointment){
     let tableclass = getTableClass(appointment.startdate, appointment.starttime)
-    console.log(tableclass)
     let template = document.getElementById("templateAppointment").content
     let copyHTML = document.importNode(template, true)
     copyHTML.querySelector("#appointment").textContent = appointment.starttime + "-" + appointment.endtime + " " + appointment.title
     copyHTML.querySelector("#appointment").classList.add(tableclass)
+    let categoryClass = getCategoryColor(appointment.category)
+    copyHTML.querySelector("#appointment").classList.add(categoryClass)
     document.getElementById("week").appendChild(copyHTML)
+}
+
+function getCategoryColor(category){
+    if(category == "Family"){
+        return "family"
+    }else if (category == "Friends"){
+        return "friends"
+    }else if (category == "Doctor") {
+        return "doctor"
+    }else if(category == "Sports") {
+        return "sports"
+    }else if(category == "Other"){
+        return "other"
+    }
 }
 
 function getTableClass(day, time) {

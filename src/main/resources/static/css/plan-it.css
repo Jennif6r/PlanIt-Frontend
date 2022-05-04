@@ -2392,8 +2392,6 @@ p {
 .thirdeight {
   grid-column: 3/4;
   grid-row: 8;
-  background-color: cornflowerblue;
-  border-radius: 20px;
 }
 
 /* all the other things */
@@ -2401,7 +2399,6 @@ p {
   margin-left: auto;
   margin-right: auto;
   width: 150px;
-  /* border: 1px solid black; */
 }
 
 #imgCalander {
@@ -2424,18 +2421,25 @@ p {
   margin-left: 25%;
 }
 
-/* li {
-    border-bottom: 5px;
-    padding: 20px;
-    list-style-type: none;
-    text-align: right;
-    background-color: lightgray;
+.family{
+    background-color: darkcyan;
 }
 
-ul {
-    padding-left: 0;
-    margin-top: 0;
-} */
+.friends{
+    background-color: darkslateblue;
+}
+
+.doctor{
+    background-color: olivedrab;
+}
+
+.sports{
+    background-color: skyblue;
+}
+
+.other{
+    background-color: sienna;
+}
 
 #createApointment {
   background-color: lightgrey;
@@ -2451,6 +2455,8 @@ ul {
 #appointment {
   text-align: left;
   padding: 10%;
+  border-radius: 20px;
+  
 }
 
 #time {
