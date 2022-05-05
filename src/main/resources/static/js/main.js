@@ -5,13 +5,16 @@ let months30Days = ["3", "5", "8", "10"]
 let months31Days = ["0", "2", "4", "6", "7", "9"]
 let url;
 let appointments = new Object()
+let appointmentChooser = document.getElementById("appointmentChooser")
 
 setLeftTable()
 setWeekTable()
+changeDate()
 
 
 document.getElementById("datePicker").addEventListener("change", changeDate)
-changeDate()
+document.getElementById("delete").addEventListener("click", deleteAppointment)
+
 
 function getAppointments(){
     let data = new FormData();
@@ -30,9 +33,19 @@ function getAppointments(){
         let number = Object.sizes(appointments)
         for (let i = 0; i<number; i++){
             setRightTableElement(appointments[i])
+            setOptionAppointment(appointments[i])
         }
         console.log(appointments)
     }
+}
+
+function setOptionAppointment(appointment){
+    // let select = document.getElementById("appointmentChooser")
+    let option = document.createElement("option")
+    option.value = appointment.id 
+    option.text = appointment.startdate + " " +  appointment.starttime + " " +appointment.title
+    // option.setAttribute("id", appointment.id)
+    appointmentChooser.add(option)
 }
 
 function setRightTableElement(appointment){
@@ -43,6 +56,8 @@ function setRightTableElement(appointment){
     copyHTML.querySelector("#appointment").classList.add(tableclass)
     let categoryClass = getCategoryColor(appointment.category)
     copyHTML.querySelector("#appointment").classList.add(categoryClass)
+    // let button = document.createElement("button")
+    // button.setAttribute("id")
     document.getElementById("week").appendChild(copyHTML)
 }
 
@@ -110,6 +125,44 @@ function setLeftTableElement(text, tableclass) {
 
 function setWeekTable() {
     getAppointments()
+}
+
+function deleteAppointment(){
+    console.log(appointments)
+    let appointmentId = document.getElementById("appointmentChooser").value
+    let appointmentIndex = document.getElementById("appointmentChooser").selectedIndex
+    let appointment = getAppointmentFromId(appointmentId)
+    console.log(appointment)
+    let data = new FormData();
+    data.append('test', "test");
+
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST","/delete?id=" + appointmentId);
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.send(JSON.stringify(data));
+
+    xhr.onload = function() {
+        console.log(appointmentIndex)
+        // console.log(xhr.response)
+        if (xhr.status == 200){
+            appointmentChooser.remove(appointmentIndex)
+            let className = getTableClass(appointment.startdate, appointment.starttime)
+            document.getElementsByClassName(className)[0].remove()
+            // $("#select1 option[value='basic']").remove(); 
+        }
+    }
+}
+
+function getAppointmentFromId(id){
+    for (let i = 0; i<Object.sizes(appointments); i++){
+        console.log(appointments[i].id)
+        if(appointments[i].id == id){
+            return appointments[i]
+        }
+    }
 }
 
 function changeDate() {

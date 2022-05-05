@@ -2441,6 +2441,20 @@ p {
     background-color: sienna;
 }
 
+#change {
+  text-align: center;
+}
+
+#delete {
+  background-color: lightgrey;
+  border-radius: 10%;
+}
+
+#edit{
+  background-color: lightgrey;
+  border-radius: 10%;
+}
+
 #createApointment {
   background-color: lightgrey;
   border-radius: 5px;

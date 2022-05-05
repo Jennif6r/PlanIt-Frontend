@@ -52,4 +52,9 @@ public class PlanItController {
 		
 		return null;
 	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/delete")
+	public void deleteAppointment(@ModelAttribute("id") String id) {
+		
+	}
 }

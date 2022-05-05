@@ -11,7 +11,6 @@
     <h1><img src="img/icon/logo_small_icon_only_inverted.png" width="40px"> PlanIt </h1>
     <hr>
     <div class="tableFiveColums">
-        <!-- <p><i class="fa-solid fa-calendar-days"></i></p> -->
         <div class="first">
             <p id="imgCalander"><img src="img/calendar.jpg" height="50px" id="imgCalendar" class="second"></p> 
         </div>
@@ -24,6 +23,16 @@
         <div class="fourth">
             <!-- <button id="createEvent" onclick="openWindow()">add new appointment</button>  -->
             <p><a href="create.html" id="createApointment" target="_blanck" >add new event</a></p>
+        </div>
+    </div>
+    <hr>
+    <div id="change">
+        <div>
+            <select name="appointments" id="appointmentChooser">
+                <option value="change" selected>choose appointment</option>
+            </select>
+            <input type="button" value="delete" id="delete">
+            <input type="button" value="edit" id="edit">
         </div>
     </div>
     <hr>
@@ -43,7 +52,7 @@
         <p id="time"></p>
     </template>
     <template id="templateAppointment">
-        <p id="appointment"></p>
+            <p id="appointment"></p>
     </template>
     <!-- <srcipt src="js/jquery.js" type="text/javascript"></srcipt> -->
     <script src="js/main.js" type="text/javascript"></script>
