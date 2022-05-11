@@ -57,4 +57,16 @@ public class PlanItController {
 	public void deleteAppointment(@ModelAttribute("id") String id) {
 		
 	}
+	
+	@RequestMapping(method=RequestMethod.POST, value= "/edit")
+//	@ModelAttribute("id") String id,
+	public AppointmentModel editAppointment( @RequestBody AppointmentModel appointment) {
+		try {
+			fpm.deleteAppointmentModel(appointment.getId());
+			fpm.add(appointment);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return appointment;
+	}
 }

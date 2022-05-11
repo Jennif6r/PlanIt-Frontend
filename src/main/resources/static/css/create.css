@@ -20,12 +20,12 @@ h2 {
     grid-auto-rows: minmax(100px, auto);
 }
 
-.second {
+.secondcreate {
     grid-column: 2/3;
     grid-row: 1;
 }
 
-.third {
+.thirdcreate {
     grid-column: 3/4;
     grid-row: 1;
 }
@@ -40,4 +40,8 @@ input {
 
 #submit {
     margin-top: 16px;
+}
+
+.noDisplay {
+    display: none;
 }

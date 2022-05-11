@@ -10,6 +10,12 @@ p {
   text-align: center;
 }
 
+.normal {
+  font-size: initial;
+  padding-top: initial;
+  /* text-align: initial; */
+}
+
 /* to set the table in the navigationbar */
 
 .tableFiveColums {
@@ -2422,11 +2428,11 @@ p {
 }
 
 .family{
-    background-color: darkcyan;
+    background-color: lightcyan;
 }
 
 .friends{
-    background-color: darkslateblue;
+    background-color: lightblue;
 }
 
 .doctor{
@@ -2438,7 +2444,7 @@ p {
 }
 
 .other{
-    background-color: sienna;
+    background-color: lightgreen;
 }
 
 #change {

@@ -9,10 +9,11 @@ let appointmentChooser = document.getElementById("appointmentChooser")
 
 setLeftTable()
 setWeekTable()
-changeDate()
 
+// changeDate()
 
-document.getElementById("datePicker").addEventListener("change", changeDate)
+document.getElementById("table").style.display = "none";
+document.getElementById("datePicker").addEventListener("change", setWeekTable)
 document.getElementById("delete").addEventListener("click", deleteAppointment)
 
 
@@ -155,6 +156,8 @@ function deleteAppointment(){
         }
     }
 }
+
+
 
 function getAppointmentFromId(id){
     for (let i = 0; i<Object.sizes(appointments); i++){

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">    
     <link rel="stylesheet" href="css/plan-it.css">
+    <link rel="stylesheet" href="css/create.css">
 </header>
 
 <body>
@@ -35,6 +36,27 @@
             <input type="button" value="edit" id="edit">
         </div>
     </div>
+    <div class="table" id="table">
+        <h2>Create Event</h2>
+        <div class="secondcreate">
+            <p class="normal">name of the event: <input type="text" id="inputname" width="100px"></p>
+            <p class="normal">start date: <input type="date" id="inputstartdate"></p>
+            <p class="normal">start time: <input type="time" id="inputstarttime"></p>
+            <p class="normal">end date: <input type="date" id="inputenddate"></p>
+            <p class="normal">end time: <input type="time" id="inputendtime"></p>
+            <p class="normal">category:
+                <select name="category" id="inputcategory">
+                    <option value="change" selected>choose category</option>
+                    <option value="Family">family</option>
+                    <option value="Friends">friends</option>
+                    <option value="Doctor" >doctor</option>
+                    <option value="Sports">sports</option>
+                    <option value="Other">other</option>
+                </select> 
+            </p>
+            <p class="normal"><input type="checkbox" id="inputflexible">flexible? <button id="editAppointment">edit</button></p>
+        </div>
+    </div>
     <hr>
     <div class="divWeek">
         <div class="firstline first"><p class="firstline">Time</p></div>
@@ -48,6 +70,7 @@
     </div>
     <div class="divWeek" id="week">
     </div>
+    <button class="noDisplay" id="submit"></button>
     <template id="templateWeek">
         <p id="time"></p>
     </template>
@@ -56,4 +79,5 @@
     </template>
     <!-- <srcipt src="js/jquery.js" type="text/javascript"></srcipt> -->
     <script src="js/main.js" type="text/javascript"></script>
+    <script src="js/create.js" type="text/javascript"></script>
 </body>
