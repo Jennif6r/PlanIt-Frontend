@@ -63,6 +63,9 @@ function sendRequest(){
     xhr.open("POST","/create");
     xhr.setRequestHeader("content-Type", "application/json");
     xhr.send(JSON.stringify(appointment));
+    xhr.onload = function(){
+        self.close()
+    }
 }
 
 function editAppointmentInput(){

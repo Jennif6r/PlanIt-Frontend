@@ -55,7 +55,12 @@ public class PlanItController {
 	
 	@RequestMapping(method=RequestMethod.POST, value="/delete")
 	public void deleteAppointment(@ModelAttribute("id") String id) {
-		
+		try {
+			fpm.deleteAppointmentModel(id);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value= "/edit")
