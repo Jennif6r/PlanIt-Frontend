@@ -6,8 +6,6 @@ let endTime;
 let category;
 let flexible = false;
 
-// let appointment = new Object([]);
-
 document.getElementById("submit").addEventListener("click", createEvent)
 document.getElementById("inputflexible").addEventListener("click", changeFlexible)
 document.getElementById("edit").addEventListener("click", editAppointmentInput)
@@ -15,7 +13,7 @@ document.getElementById("editAppointment").addEventListener("click", editAppoint
 
 function createEvent() {
     readInput();
-    checkCorrectness();
+    // checkCorrectness();
     sendRequest();
 }
 
@@ -29,23 +27,16 @@ function changeFlexible() {
 
 function readInput(){
     eventName = document.getElementById("inputname").value;
-    console.log(eventName);
     startDate = document.getElementById("inputstartdate").value;
-    console.log(startDate);
     startTime = document.getElementById("inputstarttime").value;
-    console.log(startTime);
     endDate = document.getElementById("inputenddate").value;
-    console.log(endDate);
     endTime = document.getElementById("inputendtime").value;
-    console.log(endTime);
     category = document.getElementById("inputcategory").value;
-    console.log(category);
-    console.log(flexible);
 }
 
-function checkCorrectness(){
+// function checkCorrectness(){
     
-}
+// }
 
 function sendRequest(){
     const appointment = {
@@ -58,7 +49,6 @@ function sendRequest(){
         "enddate": endDate,
         "flexible":flexible
     };
-    console.log(JSON.stringify(appointment));
     const xhr = new XMLHttpRequest();
     xhr.open("POST","/create");
     xhr.setRequestHeader("content-Type", "application/json");
@@ -70,9 +60,7 @@ function sendRequest(){
 
 function editAppointmentInput(){
     let appointmentId = document.getElementById("appointmentChooser").value
-    // let appointmentIndex = document.getElementById("appointmentChooser").selectedIndex
     let appointment = getAppointmentFromId(appointmentId)
-    console.log(appointment)
     // show create appointment
     setInput(appointment)
     document.getElementById("table").style.display = "initial";
@@ -80,7 +68,6 @@ function editAppointmentInput(){
 
 function editAppointment(){
     let appointmentId = document.getElementById("appointmentChooser").value
-    let appointment = getAppointmentFromId(appointmentId)
     readInput()
     
     const appointmentchanged = {
@@ -93,7 +80,6 @@ function editAppointment(){
         "enddate": endDate,
         "flexible":flexible
     };
-    console.log(appointmentchanged)
 
     const xhr = new XMLHttpRequest()
     xhr.open("POST", "/edit?id="+ appointmentId)
@@ -106,11 +92,9 @@ function editAppointment(){
         // document.getElementById("table").style.display = "none";
         self.location.reload(true)
     }
-
 }
 
 function setInput(appointment){
-    console.log(appointment)
     document.getElementById("inputname").value = appointment.title  
     document.getElementById("inputstartdate").value = appointment.startdate
     document.getElementById("inputstarttime").value = appointment.starttime
