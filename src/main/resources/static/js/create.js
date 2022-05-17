@@ -40,7 +40,7 @@ function readInput(){
 
 function sendRequest(){
     const appointment = {
-        "id":1,
+        "id": "",
         "title": eventName,
         "category": category,
         "startdate": startDate,
