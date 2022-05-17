@@ -23,7 +23,7 @@ function getAppointments(){
 
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST","/getAppointments?startdate=2022-04-17&enddate=2022-04-24");
+    xhr.open("POST","/get?date=2022-04-19");
 
     xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -82,38 +82,44 @@ function getTableClass(day, time) {
 
 function getFristClass(day) {
     let Day = new Date(day).getDay()
-    return classes[Day]
+    if (Day == 0){
+        return classes[7]
+    }else{
+        return classes[Day]
+    }
 }
 
 function getSecondClass(time) {
     let help = time.split(":")
     let number = parseInt(help[0])
-    return classes[number-1]
+    return classes[number]
 }
 
 function setLeftTable() {
-    let timestamp = 1;
+    let timestamp = 12;
     let tableclass;
     let text;
-    for (let i=0; i<11; i++) {
+    tableclass = classes[0]+classes[0]
+    text = timestamp+" AM:"
+    setLeftTableElement(text, tableclass)
+    timestamp = 1;
+    for (let i=1; i<12; i++) {
         tableclass = classes[0]+classes[i]
         text = timestamp+" AM:"
         timestamp++
         setLeftTableElement(text, tableclass)
     }
-    tableclass = classes[0]+classes[11]
+    tableclass = classes[0]+classes[12]
     text = timestamp+" PM:"
     setLeftTableElement(text, tableclass)
     timestamp=1;
-    for (let i=12; i<23; i++){
+    for (let i=13; i<24; i++){
         let tableclass = classes[0]+classes[i]
         let text = timestamp+" PM:"
         timestamp++
         setLeftTableElement(text, tableclass)
     }
-    tableclass = classes[0]+classes[23]
-    text = timestamp+" AM:"
-    setLeftTableElement(text, tableclass)
+    
 }
 
 function setLeftTableElement(text, tableclass) {
