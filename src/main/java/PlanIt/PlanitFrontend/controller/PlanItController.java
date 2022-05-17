@@ -48,8 +48,11 @@ public class PlanItController {
 	
 	@RequestMapping(method=RequestMethod.POST, value="/get")
 	public List<AppointmentModel> getAppointments(@ModelAttribute("date") String date){
-		
-		
+		try {
+			return fpm.loadWeek(date);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
