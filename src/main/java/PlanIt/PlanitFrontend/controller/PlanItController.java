@@ -37,6 +37,11 @@ public class PlanItController {
 	
 	@RequestMapping(method=RequestMethod.POST, value="/create")
 	public AppointmentModel createAppointment(@RequestBody AppointmentModel appointment){
+		if (appointment.getId() == null || appointment.getId() == "") {
+			appointment.setId(appointment.generateID()); 
+		} else {
+			appointment.setId(appointment.getId()) ;
+		}
 		try {
 			fpm.add(appointment);
 			return appointment;
