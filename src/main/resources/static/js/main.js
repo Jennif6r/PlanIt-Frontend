@@ -14,7 +14,8 @@ setWeekTable()
 document.getElementById("table").style.display = "none";
 document.getElementById("datePicker").addEventListener("change", changeDate)
 document.getElementById("delete").addEventListener("click", deleteAppointment)
-
+document.getElementById("weekBefore").addEventListener("click", weekBefore)
+document.getElementById("weekAfter").addEventListener("click", weekAfter)
 
 function getAppointments(date){
     let data = new FormData();
@@ -138,10 +139,24 @@ function setWeekTable() {
 }
 
 function setDateInput(){
-    let today = new Date()
-    let helpdate = today.toISOString()
-    let arrayDate =helpdate.split("T")
-    dateInput.value = arrayDate[0] 
+    // let today = new Date()
+    // let helpdate = today.toISOString()
+    // let arrayDate =helpdate.split("T")
+    dateInput.value = dateToString() 
+}
+
+function dateToString(){
+    let date
+    console.log(dateInput.value)
+    if(dateInput.value == ""){
+        date = new Date()
+    }else{
+        date = new Date(dateInput.value)
+    }
+    console.log(date)
+    let helpdate = date.toISOString()
+    let arrayDate = helpdate.split("T")
+    return arrayDate[0]
 }
 
 function deleteAppointment(){
@@ -184,8 +199,13 @@ function getAppointmentFromId(id){
 
 function changeDate() {
     let inputdate = document.getElementById("datePicker").value
+    changeWeek(inputdate)
+}
+
+function changeWeek(inputdate){
     emptyWeekTable()
     getAppointments(inputdate)
+
 }
 
 function emptyWeekTable(){
@@ -204,6 +224,38 @@ function removeRightTableElement(appointmentId){
 
 function removeOptionAppointment(appointmentId){
     document.getElementById("id"+appointmentId).remove()
+}
+
+function weekBefore(){
+    let inputdate = document.getElementById("datePicker").value
+    console.log(dateToString(inputdate))
+    emptyWeekTable()
+    sendDateRequest("before", dateToString(inputdate))
+}
+
+function weekAfter(){
+    let inputdate = document.getElementById("datePicker").value
+    console.log(dateToString(inputdate))
+    sendDateRequest("after", dateToString(inputdate))
+}
+
+function sendDateRequest(direction, date){
+    let data = new FormData();
+    data.append('test', "test");
+    
+    
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST","/newWeek?direction=" + direction + "&date=" + date);
+    
+    // xhr.setRequestHeader("Content-Type", "application/plaintext");
+    
+    xhr.send(JSON.stringify(data));
+    
+    xhr.onload = function() {
+        dateInput.value = this.response
+        getAppointments(this.response)
+    }
+
 }
 
 //Count elements of Objekt

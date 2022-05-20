@@ -2,7 +2,7 @@ package PlanIt.PlanitFrontend.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import main.AppointmentModel;
+import main.Calendar;
 //import main.FilePersistence;
 import main.FilePersistenceModel;
 
@@ -71,7 +72,6 @@ public class PlanItController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value= "/edit")
-//	@ModelAttribute("id") String id,
 	public AppointmentModel editAppointment( @RequestBody AppointmentModel appointment) {
 		try {
 			fpm.deleteAppointmentModel(appointment.getId());
@@ -80,5 +80,17 @@ public class PlanItController {
 			e.printStackTrace();
 		}
 		return appointment;
+	}
+
+	@RequestMapping(method=RequestMethod.POST, value="/newWeek")
+	public String getAppointmentModelsInOtherWeek(@ModelAttribute("direction") String direction, @ModelAttribute("date") String date){
+		if (direction.equals("before")){
+//			return "before";
+			return Calendar.getDayOfWeekBefore(date);
+		}else if(direction.equals("after")){
+			return Calendar.getDayofWeekAfter(date);
+		}
+		return "error";
+//		return direction;
 	}
 }
