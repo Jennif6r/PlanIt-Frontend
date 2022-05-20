@@ -38,16 +38,20 @@ public class PlanItController {
 	
 	@RequestMapping(method=RequestMethod.POST, value="/create")
 	public AppointmentModel createAppointment(@RequestBody AppointmentModel appointment){
-		if (appointment.getId() == null || appointment.getId() == "") {
-			appointment.setId(appointment.generateID()); 
-		} else {
-			appointment.setId(appointment.getId()) ;
-		}
-		try {
-			fpm.add(appointment);
-			return appointment;
-		}catch (IOException e) {
-			e.printStackTrace();
+		if(appointment.checkCorrectness()){
+			if (appointment.getId() == null || appointment.getId() == "") {
+				appointment.setId(appointment.generateID()); 
+			} else {
+				appointment.setId(appointment.getId()) ;
+			}
+			try {
+				fpm.add(appointment);
+				return appointment;
+			}catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}else{
 			return null;
 		}
 	}
@@ -73,13 +77,17 @@ public class PlanItController {
 	
 	@RequestMapping(method=RequestMethod.POST, value= "/edit")
 	public AppointmentModel editAppointment( @RequestBody AppointmentModel appointment) {
-		try {
-			fpm.deleteAppointmentModel(appointment.getId());
-			fpm.add(appointment);
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (appointment.checkCorrectness()) {
+			try {
+				fpm.deleteAppointmentModel(appointment.getId());
+				fpm.add(appointment);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return appointment;
+		}else {
+			return null;
 		}
-		return appointment;
 	}
 
 	@RequestMapping(method=RequestMethod.POST, value="/newWeek")

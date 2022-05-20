@@ -45,3 +45,8 @@ input {
 .noDisplay {
     display: none;
 }
+
+#error {
+    color: red;
+    font-size: 400%;
+}

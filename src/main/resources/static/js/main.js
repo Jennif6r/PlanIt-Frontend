@@ -37,7 +37,6 @@ function getAppointments(date){
             setRightTableElement(appointments[i])
             setOptionAppointment(appointments[i])
         }
-        console.log(appointments)
     }
 }
 
@@ -142,13 +141,11 @@ function setDateInput(){
 
 function dateToString(){
     let date
-    console.log(dateInput.value)
     if(dateInput.value == ""){
         date = new Date()
     }else{
         date = new Date(dateInput.value)
     }
-    console.log(date)
     let helpdate = date.toISOString()
     let arrayDate = helpdate.split("T")
     return arrayDate[0]
@@ -158,7 +155,6 @@ function deleteAppointment(){
     let appointmentId = document.getElementById("appointmentChooser").value
     let appointmentIndex = document.getElementById("appointmentChooser").selectedIndex
     let appointment = getAppointmentFromId(appointmentId)
-    console.log(appointment)
     let data = new FormData();
     data.append('test', "test");
 
@@ -171,7 +167,6 @@ function deleteAppointment(){
     xhr.send(JSON.stringify(data));
 
     xhr.onload = function() {
-        console.log(appointmentIndex)
         if (xhr.status == 200){
             appointmentChooser.remove(appointmentIndex)
             removeRightTableElement(appointmentId)
@@ -181,7 +176,6 @@ function deleteAppointment(){
 
 function getAppointmentFromId(id){
     for (let i = 0; i<Object.sizes(appointments); i++){
-        console.log(appointments[i].id)
         if(appointments[i].id == id){
             return appointments[i]
         }
@@ -219,14 +213,12 @@ function removeOptionAppointment(appointmentId){
 
 function weekBefore(){
     let inputdate = document.getElementById("datePicker").value
-    console.log(dateToString(inputdate))
     emptyWeekTable()
     sendDateRequest("before", dateToString(inputdate))
 }
 
 function weekAfter(){
     let inputdate = document.getElementById("datePicker").value
-    console.log(dateToString(inputdate))
     sendDateRequest("after", dateToString(inputdate))
 }
 

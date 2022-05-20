@@ -6,6 +6,7 @@ let endTime;
 let category;
 let flexible = false;
 
+document.getElementById("error").hidden = true
 document.getElementById("submit").addEventListener("click", createEvent)
 document.getElementById("inputflexible").addEventListener("click", changeFlexible)
 document.getElementById("edit").addEventListener("click", editAppointmentInput)
@@ -13,7 +14,7 @@ document.getElementById("editAppointment").addEventListener("click", editAppoint
 
 function createEvent() {
     readInput();
-    // checkCorrectness();
+    // checkCorrectnessCreate();
     sendRequest();
 }
 
@@ -34,28 +35,28 @@ function readInput(){
     category = document.getElementById("inputcategory").value;
 }
 
-// function checkCorrectness(){
-    
-// }
-
-function sendRequest(){
-    const appointment = {
-        "id": "",
-        "title": eventName,
-        "category": category,
-        "startdate": startDate,
-        "starttime": startTime +":00",
-        "endtime": endTime +":00",
-        "enddate": endDate,
-        "flexible":flexible
-    };
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST","/create");
-    xhr.setRequestHeader("content-Type", "application/json");
-    xhr.send(JSON.stringify(appointment));
-    xhr.onload = function(){
-        self.close()
+function sendRequest() {
+  const appointment = {
+    id: "",
+    title: eventName,
+    category: category,
+    startdate: startDate,
+    starttime: startTime + ":00",
+    endtime: endTime + ":00",
+    enddate: endDate,
+    flexible: flexible,
+  };
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/create");
+  xhr.setRequestHeader("content-Type", "application/json");
+  xhr.send(JSON.stringify(appointment));
+  xhr.onload = function () {
+    if (this.response !== "") {
+      self.close();
+    } else {
+      document.getElementById("error").hidden = false;
     }
+  }
 }
 
 function editAppointmentInput(){
@@ -89,8 +90,12 @@ function editAppointment(){
     xhr.send(JSON.stringify(appointmentchanged));
     
     xhr.onload = function (){
-        // document.getElementById("table").style.display = "none";
-        self.location.reload(true)
+        console.log(this.response)
+        if(this.response !==  ""){
+            self.location.reload(true)
+        }else{
+            document.getElementById("error").hidden = false
+        }
     }
 }
 
