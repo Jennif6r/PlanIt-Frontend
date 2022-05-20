@@ -91,6 +91,10 @@ public class PlanItController {
 			return Calendar.getDayofWeekAfter(date);
 		}
 		return "error";
-//		return direction;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/aktualWeek")
+	public List<String> getAktualWeek(@ModelAttribute("date") String date) {
+		return Calendar.getAktualWeek(date);
 	}
 }

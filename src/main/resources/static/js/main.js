@@ -41,7 +41,6 @@ function getAppointments(date){
 }
 
 function setOptionAppointment(appointment){
-    // let select = document.getElementById("appointmentChooser")
     let option = document.createElement("option")
     option.value = appointment.id 
     option.text = appointment.startdate + " " +  appointment.starttime + " " +appointment.title
@@ -53,13 +52,11 @@ function setRightTableElement(appointment){
     let tableclass = getTableClass(appointment.startdate, appointment.starttime)
     let template = document.getElementById("templateAppointment").content
     let copyHTML = document.importNode(template, true)
-    copyHTML.querySelector("#appointment").textContent = appointment.starttime + "-" + appointment.endtime + " " + appointment.title
+    copyHTML.querySelector("#appointment").textContent = cutTime(appointment.starttime )+ "-" + cutTime(appointment.endtime) + " " + appointment.title
     copyHTML.querySelector("#appointment").classList.add(tableclass)
     copyHTML.querySelector("#appointment").classList.add(appointment.id)
     let categoryClass = getCategoryColor(appointment.category)
     copyHTML.querySelector("#appointment").classList.add(categoryClass)
-    // let button = document.createElement("button")
-    // button.setAttribute("id")
     document.getElementById("week").appendChild(copyHTML)
 }
 
@@ -139,9 +136,6 @@ function setWeekTable() {
 }
 
 function setDateInput(){
-    // let today = new Date()
-    // let helpdate = today.toISOString()
-    // let arrayDate =helpdate.split("T")
     dateInput.value = dateToString() 
 }
 
@@ -160,7 +154,6 @@ function dateToString(){
 }
 
 function deleteAppointment(){
-    // console.log(appointments)
     let appointmentId = document.getElementById("appointmentChooser").value
     let appointmentIndex = document.getElementById("appointmentChooser").selectedIndex
     let appointment = getAppointmentFromId(appointmentId)
@@ -178,12 +171,9 @@ function deleteAppointment(){
 
     xhr.onload = function() {
         console.log(appointmentIndex)
-        // console.log(xhr.response)
         if (xhr.status == 200){
             appointmentChooser.remove(appointmentIndex)
             removeRightTableElement(appointmentId)
-            // let className = getTableClass(appointment.startdate, appointment.starttime)
-            // document.getElementsByClassName(className)[0].remove()
         }
     }
 }
@@ -247,15 +237,17 @@ function sendDateRequest(direction, date){
     const xhr = new XMLHttpRequest();
     xhr.open("POST","/newWeek?direction=" + direction + "&date=" + date);
     
-    // xhr.setRequestHeader("Content-Type", "application/plaintext");
-    
     xhr.send(JSON.stringify(data));
     
     xhr.onload = function() {
         dateInput.value = this.response
         getAppointments(this.response)
     }
+}
 
+function cutTime(time){
+    let help = time.split(":")
+    return help[0] + ":" +help[1]
 }
 
 //Count elements of Objekt
