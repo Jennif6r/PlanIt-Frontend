@@ -44,7 +44,7 @@ function setOptionAppointment(appointment){
     let option = document.createElement("option")
     option.value = appointment.id 
     option.text = appointment.startdate + " " +  appointment.starttime + " " +appointment.title
-    // option.setAttribute("id", appointment.id)
+    option.setAttribute("id", "id"+appointment.id)
     appointmentChooser.add(option)
 }
 
@@ -203,8 +203,7 @@ function removeRightTableElement(appointmentId){
 }
 
 function removeOptionAppointment(appointmentId){
-    let todelete = document.querySelector("#appointmentChooser option[value="+  appointmentId + "]")
-    console.log(todelete)
+    document.getElementById("id"+appointmentId).remove()
 }
 
 //Count elements of Objekt
