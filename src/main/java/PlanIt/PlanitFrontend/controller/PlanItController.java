@@ -21,19 +21,19 @@ public class PlanItController {
 //			 File.separator + "appointments.json");
 	FilePersistenceModel fpm = new FilePersistenceModel(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "Appointments by PlanIt",
 			 File.separator + "appointments.json");
-	@RequestMapping(method=RequestMethod.POST, value="/getAppointments")
-	public List<AppointmentModel> getAppointmentModelsInTimespan(@ModelAttribute("startdate") String start, @ModelAttribute("enddate") String end) {
-//		load file into Arraylist
-		ArrayList<AppointmentModel> appointmentList;
-		try {
-//			get filtered list from persistence
-			appointmentList = new ArrayList<>(fpm.loadInTimespan(start, end));
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-		return appointmentList;
-	}
+// 	@RequestMapping(method=RequestMethod.POST, value="/getAppointments")
+// 	public List<AppointmentModel> getAppointmentModelsInTimespan(@ModelAttribute("startdate") String start, @ModelAttribute("enddate") String end) {
+// //		load file into Arraylist
+// 		ArrayList<AppointmentModel> appointmentList;
+// 		try {
+// //			get filtered list from persistence
+// 			appointmentList = new ArrayList<>(fpm.loadInTimespan(start, end));
+// 		} catch (IOException e) {
+// 			e.printStackTrace();
+// 			return null;
+// 		}
+// 		return appointmentList;
+// 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/create")
 	public AppointmentModel createAppointment(@RequestBody AppointmentModel appointment){
