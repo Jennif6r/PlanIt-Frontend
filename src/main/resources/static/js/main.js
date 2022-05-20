@@ -1,29 +1,28 @@
 "use strict";
 let classes = ["first", "second" , "third", "fourth", "fifth", "sixt", "sevent", "eight", "nine", "tenth", "eleven", "twelve", "thirhteen", "fourtheen", "fiftteen", "sixteen", "seventeen", "eightteen", "nineteen", "twenty", "twentyone", "twentytwo", "twentythird", "twentyfour"]
 let timeperiod;
-let months30Days = ["3", "5", "8", "10"]
-let months31Days = ["0", "2", "4", "6", "7", "9"]
 let url;
 let appointments = new Object()
 let appointmentChooser = document.getElementById("appointmentChooser")
+let dateInput = document.getElementById("datePicker")
+
 
 setLeftTable()
 setWeekTable()
 
-// changeDate()
 
 document.getElementById("table").style.display = "none";
-document.getElementById("datePicker").addEventListener("change", setWeekTable)
+document.getElementById("datePicker").addEventListener("change", changeDate)
 document.getElementById("delete").addEventListener("click", deleteAppointment)
 
 
-function getAppointments(){
+function getAppointments(date){
     let data = new FormData();
     data.append('test', "test");
 
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST","/get?date=2022-04-19");
+    xhr.open("POST","/get?date=" + date);
 
     xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -55,6 +54,7 @@ function setRightTableElement(appointment){
     let copyHTML = document.importNode(template, true)
     copyHTML.querySelector("#appointment").textContent = appointment.starttime + "-" + appointment.endtime + " " + appointment.title
     copyHTML.querySelector("#appointment").classList.add(tableclass)
+    copyHTML.querySelector("#appointment").classList.add(appointment.id)
     let categoryClass = getCategoryColor(appointment.category)
     copyHTML.querySelector("#appointment").classList.add(categoryClass)
     // let button = document.createElement("button")
@@ -131,11 +131,21 @@ function setLeftTableElement(text, tableclass) {
 }
 
 function setWeekTable() {
-    getAppointments()
+    if(dateInput.value == ""){
+        setDateInput()
+    }
+    getAppointments(dateInput.value)
+}
+
+function setDateInput(){
+    let today = new Date()
+    let helpdate = today.toISOString()
+    let arrayDate =helpdate.split("T")
+    dateInput.value = arrayDate[0] 
 }
 
 function deleteAppointment(){
-    console.log(appointments)
+    // console.log(appointments)
     let appointmentId = document.getElementById("appointmentChooser").value
     let appointmentIndex = document.getElementById("appointmentChooser").selectedIndex
     let appointment = getAppointmentFromId(appointmentId)
@@ -156,14 +166,12 @@ function deleteAppointment(){
         // console.log(xhr.response)
         if (xhr.status == 200){
             appointmentChooser.remove(appointmentIndex)
-            let className = getTableClass(appointment.startdate, appointment.starttime)
-            document.getElementsByClassName(className)[0].remove()
-            // $("#select1 option[value='basic']").remove(); 
+            removeRightTableElement(appointmentId)
+            // let className = getTableClass(appointment.startdate, appointment.starttime)
+            // document.getElementsByClassName(className)[0].remove()
         }
     }
 }
-
-
 
 function getAppointmentFromId(id){
     for (let i = 0; i<Object.sizes(appointments); i++){
@@ -175,84 +183,33 @@ function getAppointmentFromId(id){
 }
 
 function changeDate() {
-    let inputtime = document.getElementById("datePicker").value
-    // console.log(inputtime)
-    let askDate = new Date(inputtime)
-    // console.log(askDate)
-    let day = askDate.getDay()
-    // console.log(day)
-    url = geturl(day, askDate)
+    let inputdate = document.getElementById("datePicker").value
+    emptyWeekTable()
+    getAppointments(inputdate)
 }
 
-function geturl(day, askDate){
-    let startDay = getStartDay(day, askDate)
-    let endDay = getEndDay(startDay)
-    // console.log(startDay + "\n" + endDay) 
-    return "/getAppointments?startdate=" + startDay + "&enddate=" + endDay
-}
-
-function getStartDay(day, askDate) {
-    if (day == 1){
-        let helpdate = askDate.toISOString()
-        let arrayDate =helpdate.split("T")
-        return arrayDate[0]
-    }
-    else {
-        //kein monatswechsel
-        if (day < askDate.getDate()){
-            let dayOfMonth
-            if (day == 0){
-                dayOfMonth = askDate.getDate() - 5;
-            }else{
-                dayOfMonth = askDate.getDate() - day + 2;
-            }
-            // console.log(askDate.getFullYear(), askDate.getMonth() +1);
-            // console.log(askDate.getDate() + 1);
-            // console.log(dayOfMonth);
-            let helpdate = new Date(
-                askDate.getFullYear(),
-                askDate.getMonth(),
-                dayOfMonth
-                ).toISOString();
-            let arrayDate = helpdate.split("T")
-            return arrayDate[0]
-        }
-        //monatswechsel
-        else{
-            // console.log("else")
-            let helpMonth = (askDate.getMonth() - 1).toString()
-            let actualDay = askDate.getDate()
-            if (months31Days.includes(helpMonth)){
-                return getMonthoverflow(31, actualDay, askDate)
-            }else if(months30Days.includes(helpMonth)){
-                return getMonthoverflow(30, actualDay, askDate)
-            }else if(helpMonth == "11") {
-                let helpdate = new Date(askDate.getFullYear()-1, 1, actualDay + 31 -6)
-            }else {
-
-            }
-        }
+function emptyWeekTable(){
+    let number = Object.sizes(appointments)
+    for (let i = 0; i<number; i++){
+        removeRightTableElement(appointments[i].id)
+        removeOptionAppointment(appointments[i].id)
     }
 }
 
-function getMonthoverflow(number, actualDay, askDate){
-    let helpdate = new Date(askDate.getFullYear(), askDate.getMonth() -1, actualDay + number - 4 ).toISOString()
-    let arrayDate = helpdate.split("T")
-    return arrayDate[0]    
+function removeRightTableElement(appointmentId){
+    let div = document.getElementById("week")
+    let element = document.getElementsByClassName(appointmentId)
+    div.removeChild(element[0])
 }
 
-function getEndDay(startDay){
-    // console.log(startDay)   
-    let helpDate = new Date(startDay)
-    // console.log(helpDate)
-    helpDate = new Date(helpDate.getFullYear(), helpDate.getMonth(), helpDate.getDate()+7).toISOString()
-    let arrayDate = helpDate.split("T")
-    return arrayDate[0]
+function removeOptionAppointment(appointmentId){
+    let todelete = document.querySelector("#appointmentChooser option[value="+  appointmentId + "]")
+    console.log(todelete)
 }
 
 //Count elements of Objekt
 Object.sizes = function(obj){
-    var size = 0, key;
+    let size = 0, key;
     for (key in obj) {
         if (obj.hasOwnProperty(key))
              size++;
