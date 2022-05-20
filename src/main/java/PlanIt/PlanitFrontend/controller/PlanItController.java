@@ -93,7 +93,7 @@ public class PlanItController {
 		return "error";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="/aktualWeek")
+	@RequestMapping(method=RequestMethod.POST, value="/actualWeek")
 	public List<String> getAktualWeek(@ModelAttribute("date") String date) {
 		return Calendar.getAktualWeek(date);
 	}

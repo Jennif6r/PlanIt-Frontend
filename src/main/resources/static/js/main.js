@@ -9,6 +9,7 @@ let dateInput = document.getElementById("datePicker")
 
 setLeftTable()
 setWeekTable()
+setWeekOnView()
 
 
 document.getElementById("table").style.display = "none";
@@ -241,8 +242,33 @@ function sendDateRequest(direction, date){
     
     xhr.onload = function() {
         dateInput.value = this.response
+        setWeekOnView(this.response)
         getAppointments(this.response)
     }
+}
+
+function setWeekOnView(){
+    let data = new FormData();
+    data.append('test', "test");
+    
+    
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/actualWeek?date=" + dateInput.value);
+    
+    xhr.send(JSON.stringify(data));
+    
+    xhr.onload = function() {
+        let help = this.response.split('"')
+        let start = new Date(help[1]).toLocaleString()
+        let end =  new Date(help[3]).toLocaleString()
+        let title = localDateToString(start) + " - " + localDateToString(end)
+        document.getElementById("timePeriodText").textContent = title
+    }
+}
+
+function localDateToString(localDate){
+    let arrayDate = localDate.split(",")
+    return arrayDate[0]
 }
 
 function cutTime(time){
