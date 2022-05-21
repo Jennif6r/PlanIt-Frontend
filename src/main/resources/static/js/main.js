@@ -1,5 +1,5 @@
 "use strict";
-let classes = ["first", "second" , "third", "fourth", "fifth", "sixt", "sevent", "eight", "nine", "tenth", "eleven", "twelve", "thirhteen", "fourtheen", "fiftteen", "sixteen", "seventeen", "eightteen", "nineteen", "twenty", "twentyone", "twentytwo", "twentythird", "twentyfour"]
+let classes = ["one", "two" , "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourtheen", "fiveteen", "sixteen", "seventeen", "eightteen", "nineteen", "twenty", "twentyone", "twentytwo", "twentythree", "twentyfour"]
 let timeperiod;
 let url;
 let appointments = new Object()
@@ -49,25 +49,26 @@ function setOptionAppointment(appointment){
     appointmentChooser.add(option)
 }
 
-function setRightTableElement(appointment, isStart, end, iteration){
+function setRightTableElement(appointment, isStart, startgrid, endgrid){
     let template = document.getElementById("templateAppointment").content
     let copyHTML = document.importNode(template, true)
     let tableclass
     if(!isStart){
-        tableclass = getTableClass(appointment.startdate, iteration)
-        copyHTML.querySelector("#appointment").textContent = " "
+        // copyHTML.querySelector("#appointment").textContent = "-"
     }else{
-        tableclass = getTableClass(appointment.startdate, appointment.starttime)
+        tableclass = getSecondClass(appointment.starttime)
         copyHTML.querySelector("#appointment").classList.add("start")
-        copyHTML.querySelector("#appointment").textContent = cutTime(appointment.starttime )+ "-" + cutTime(appointment.endtime) + " \n " + appointment.title
+        copyHTML.querySelector("#appointment").classList.add(tableclass)
     }
-    if(end){
-        copyHTML.querySelector("#appointment").classList.add("end")
-    }
+    copyHTML.querySelector("#appointment").textContent = cutTime(appointment.starttime )+ "-" + cutTime(appointment.endtime) + " \n " + appointment.title
+    copyHTML.querySelector("#appointment").classList.add(getFristClass(appointment.startdate))
     copyHTML.querySelector("#appointment").classList.add(appointment.id)
-    copyHTML.querySelector("#appointment").classList.add(tableclass)
     let categoryClass = getCategoryColor(appointment.category)
     copyHTML.querySelector("#appointment").classList.add(categoryClass)
+    if(!isStart){
+        copyHTML.querySelector("#appointment").style["grid-row-start"] = ++startgrid
+        copyHTML.querySelector("#appointment").style["grid-row-end"] = ++endgrid
+    } 
     document.getElementById("week").appendChild(copyHTML)
 }
 
@@ -75,10 +76,25 @@ function checkLongerOneHour(appointment){
     let start = getHourOfTime(appointment.starttime)
     let end = getHourOfTime(appointment.endtime)
     if(checkstartIsEndHour(start,end)){
-        setRightTableElement(appointment, true, true, 0)
+        setRightTableElement(appointment, true, 0,0)
     }else{
-        setWholeTime(start, end, appointment)
+        // setWholeTime(start, end, appointment)
+        
+        // setCSSClass(appointment.id, start, end)
+        setRightTableElement(appointment, false, start, end)
     }
+}
+
+function setCSSClass(id, start, end){
+    start = parseInt(start)
+    console.log(start)
+    end = parseInt(end)
+    console.log(end)
+    let style = document.createElement('style')
+    style.type="text/css"
+    style.innerHTML = '.'+ id+' { grid-row-start: '+ start+'; grid-row-end: ' + end + ';}'
+    console.log(style.innerHTML)
+    document.getElementsByTagName('head')[0].appendChild(style);
 }
 
 function checkstartIsEndHour(start, end){
@@ -90,25 +106,26 @@ function checkstartIsEndHour(start, end){
     return false
 }
 
-function setWholeTime(start, end,appointment){
-    for (let i = start; i < end; i++){
-        setNextHour(i, appointment, start, end)
-    }
-}
+// function setWholeTime(start, end,appointment){
+//     let startZahl = parseInt(start)
+//     let endZahl = parseInt(end)
+//     for (let i = startZahl; i < endZahl; i++){
+//         setNextHour(i, appointment, start, end)
+//     }
+// }
 
-function setNextHour(hour, appointment, start, end){
-    // console.log(appointment.endtime)
-    // let end = getHourOfTime(appointment.endtime)
-    let isEnd = false
-    let isStart = false
-    if(hour == end){
-        isEnd = true
-    }
-    if(hour == start){
-        isStart = true
-    }
-    (appointment, isStart, isEnd, hour)
-}
+// function setNextHour(hour, appointment, start, end){
+//     // let end = getHourOfTime(appointment.endtime)
+//     let isEnd = false
+//     let isStart = false
+//     if(hour == end){
+//         isEnd = true
+//     }
+//     if(hour == start){
+//         isStart = true
+//     }
+//     setRightTableElement(appointment, isStart, hour)
+// }
 
 function getHourOfTime (time){
     let help = cutTime(time)
@@ -141,9 +158,19 @@ function getTableClass(day, time) {
 function getFristClass(day) {
     let Day = new Date(day).getDay()
     if (Day == 0){
-        return classes[7]
-    }else{
-        return classes[Day]
+        return "Monday"
+    }else if(Day == 1){
+        return "Thuesday"
+    }else if(Day == 2){
+        return "Wednesday"
+    }else if(Day == 3){
+        return "Thursday "
+    }else if(Day == 4){
+        return "Friday"
+    }else if(Day == 5){
+        return "Saturday"
+    }else if(Day == 6){
+        return "Sonnday"
     }
 }
 
@@ -157,22 +184,22 @@ function setLeftTable() {
     let timestamp = 12;
     let tableclass;
     let text;
-    tableclass = classes[0]+classes[0]
+    tableclass = classes[0]
     text = timestamp+" AM:"
     setLeftTableElement(text, tableclass)
     timestamp = 1;
     for (let i=1; i<12; i++) {
-        tableclass = classes[0]+classes[i]
+        tableclass = classes[i]
         text = timestamp+" AM:"
         timestamp++
         setLeftTableElement(text, tableclass)
     }
-    tableclass = classes[0]+classes[12]
+    tableclass = classes[12]
     text = timestamp+" PM:"
     setLeftTableElement(text, tableclass)
     timestamp=1;
     for (let i=13; i<24; i++){
-        let tableclass = classes[0]+classes[i]
+        let tableclass = classes[i]
         let text = timestamp+" PM:"
         timestamp++
         setLeftTableElement(text, tableclass)
@@ -185,6 +212,7 @@ function setLeftTableElement(text, tableclass) {
     let copyHTML = document.importNode(template, true)
     copyHTML.querySelector("#time").textContent = text
     copyHTML.querySelector("#time").classList.add(tableclass)
+    copyHTML.querySelector("#time").classList.add("first")
     document.getElementById("week").appendChild(copyHTML)
 }
 
@@ -340,4 +368,11 @@ Object.sizes = function(obj){
              size++;
     }
     return size;
-};
+}
+
+// var style = document.createElement('style');
+// style.type="text/css";
+// style.innerHTML = '.cssClass { color: #F00; }';
+// document.getElementsByTagName('head')[0].appendChild(style);
+
+// document.getElementById('time').className="cssClass";

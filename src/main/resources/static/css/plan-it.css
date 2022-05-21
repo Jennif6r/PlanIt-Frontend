@@ -60,10 +60,11 @@ p {
   grid-row: 1;
 }
 
-.eight {
+.eightt {
   grid-column: 8/9;
   grid-row: 1;
 }
+
 
 .end{
   border-bottom-left-radius: 20px;
@@ -90,7 +91,9 @@ p {
   font: 150%;
 }
 
-.firstfirst {
+
+
+/* .firstfirst {
   grid-column: 1/2;
   grid-row: 1;
 }
@@ -867,7 +870,7 @@ p {
 .eighttwentyfour {
   grid-column: 8/9;
   grid-row: 24;
-}
+} */
 
 /* all the other things */
 .center {
@@ -944,7 +947,7 @@ p {
 #appointment {
   text-align: left;
   padding: 10%;
-  /* border-radius: ; */
+  border-radius: 20px;
   
 }
 

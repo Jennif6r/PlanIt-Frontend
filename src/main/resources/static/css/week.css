@@ -1,0 +1,124 @@
+.Monday {
+    grid-column: 1/2;
+}
+
+.Thuesday {
+    grid-column: 2/3;
+}
+
+.Wednesday{
+    grid-column: 3/4;
+}
+
+.Thursday {
+    grid-column: 4/5;
+}
+
+.Friday {
+    grid-column: 5/6;
+}
+
+.Saturday {
+    grid-column: 6/7;
+}
+
+.Sunday {
+    grid-column: 7/8;
+}
+
+.one {
+    grid-column: 1;
+}
+
+.two {
+   grid-row-start: 2;
+   grid-row-end: 3;
+}
+
+.three {
+    grid-row: 3;
+}
+
+.four {
+    grid-row: 4;
+}
+
+.five {
+    grid-row: 5;
+}
+
+.six {
+    grid-row: 6;
+}
+
+.seven {
+    grid-row: 7;
+}
+
+.eight {
+    grid-row: 8;
+}
+
+.nine {
+    grid-row: 9;
+}
+
+.ten {
+    grid-row: 10;
+}
+
+.eleven {
+    grid-row:11;
+}
+
+.twelve {
+    grid-row:12;
+}
+
+.thirteen {
+    grid-row: 13;
+}
+
+.fourtheen {
+    grid-row: 14;
+}
+
+.fiveteen {
+    grid-row: 15;
+}
+
+.sixteen {
+    grid-row: 16;
+}
+
+.seventeen {
+    grid-row: 17;
+}
+
+.eightteen {
+    grid-row: 18;
+}
+
+.nineteen {
+    grid-row: 19;
+}
+
+.twenty {
+    grid-row: 20;
+}
+
+.twentyone {
+    grid-row: 21;
+}
+
+.twentytwo {
+    grid-row: 22;
+}
+
+.twentythree {
+    grid-row: 23;
+}
+
+.twentyfour {
+    grid-row: 24;
+}
