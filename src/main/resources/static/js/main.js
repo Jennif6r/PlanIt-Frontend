@@ -13,7 +13,7 @@ setWeekOnView()
 
 
 document.getElementById("table").style.display = "none";
-document.getElementById("datePicker").addEventListener("change", changeDate)
+dateInput.addEventListener("change", changeDate)
 document.getElementById("delete").addEventListener("click", deleteAppointment)
 document.getElementById("weekBefore").addEventListener("click", weekBefore)
 document.getElementById("weekAfter").addEventListener("click", weekAfter)
@@ -52,7 +52,7 @@ function setRightTableElement(appointment){
     let tableclass = getTableClass(appointment.startdate, appointment.starttime)
     let template = document.getElementById("templateAppointment").content
     let copyHTML = document.importNode(template, true)
-    copyHTML.querySelector("#appointment").textContent = cutTime(appointment.starttime )+ "-" + cutTime(appointment.endtime) + " " + appointment.title
+    copyHTML.querySelector("#appointment").textContent = cutTime(appointment.starttime )+ "-" + cutTime(appointment.endtime) + " \n " + appointment.title
     copyHTML.querySelector("#appointment").classList.add(tableclass)
     copyHTML.querySelector("#appointment").classList.add(appointment.id)
     let categoryClass = getCategoryColor(appointment.category)
@@ -184,6 +184,7 @@ function getAppointmentFromId(id){
 
 function changeDate() {
     let inputdate = document.getElementById("datePicker").value
+    setWeekOnView(inputdate)
     changeWeek(inputdate)
 }
 
@@ -219,6 +220,7 @@ function weekBefore(){
 
 function weekAfter(){
     let inputdate = document.getElementById("datePicker").value
+    emptyWeekTable()
     sendDateRequest("after", dateToString(inputdate))
 }
 
