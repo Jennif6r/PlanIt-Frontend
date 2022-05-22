@@ -34,8 +34,7 @@ function getAppointments(date){
         appointments = JSON.parse(xhr.response)
         let number = Object.sizes(appointments)
         for (let i = 0; i<number; i++){
-            checkLongerOneHour(appointments[i])
-            // (appointments[i], false, false, 0)
+            setRightTableElement(appointments[i])
             setOptionAppointment(appointments[i])
         }
     }
@@ -49,83 +48,34 @@ function setOptionAppointment(appointment){
     appointmentChooser.add(option)
 }
 
-function setRightTableElement(appointment, isStart, startgrid, endgrid){
+function setRightTableElement(appointment){
     let template = document.getElementById("templateAppointment").content
-    let copyHTML = document.importNode(template, true)
+    let appointmentTemplate = document.importNode(template, true).querySelector("#appointment")
     let tableclass
-    if(!isStart){
-        // copyHTML.querySelector("#appointment").textContent = "-"
-    }else{
-        tableclass = getSecondClass(appointment.starttime)
-        copyHTML.querySelector("#appointment").classList.add("start")
-        copyHTML.querySelector("#appointment").classList.add(tableclass)
-    }
-    copyHTML.querySelector("#appointment").textContent = cutTime(appointment.starttime )+ "-" + cutTime(appointment.endtime) + " \n " + appointment.title
-    copyHTML.querySelector("#appointment").classList.add(getFristClass(appointment.startdate))
-    copyHTML.querySelector("#appointment").classList.add(appointment.id)
-    let categoryClass = getCategoryColor(appointment.category)
-    copyHTML.querySelector("#appointment").classList.add(categoryClass)
-    if(!isStart){
-        copyHTML.querySelector("#appointment").style["grid-row-start"] = ++startgrid
-        copyHTML.querySelector("#appointment").style["grid-row-end"] = ++endgrid
-    } 
-    document.getElementById("week").appendChild(copyHTML)
-}
-
-function checkLongerOneHour(appointment){
     let start = getHourOfTime(appointment.starttime)
     let end = getHourOfTime(appointment.endtime)
-    if(checkstartIsEndHour(start,end)){
-        setRightTableElement(appointment, true, 0,0)
-    }else{
-        // setWholeTime(start, end, appointment)
-        
-        // setCSSClass(appointment.id, start, end)
-        setRightTableElement(appointment, false, start, end)
-    }
-}
 
-function setCSSClass(id, start, end){
-    start = parseInt(start)
-    console.log(start)
-    end = parseInt(end)
-    console.log(end)
-    let style = document.createElement('style')
-    style.type="text/css"
-    style.innerHTML = '.'+ id+' { grid-row-start: '+ start+'; grid-row-end: ' + end + ';}'
-    console.log(style.innerHTML)
-    document.getElementsByTagName('head')[0].appendChild(style);
+    if(checkstartIsEndHour(start,end)){
+        tableclass = getLine(appointment.starttime)
+        appointmentTemplate.classList.add("start")
+        appointmentTemplate.classList.add(tableclass)
+    }else{
+        appointmentTemplate.style["grid-row-start"] = ++start
+        appointmentTemplate.style["grid-row-end"] = ++end
+    }
+    appointmentTemplate.textContent = cutTime(appointment.starttime )+ "-" + cutTime(appointment.endtime) + " \n " + appointment.title
+    appointmentTemplate.classList.add(getDayClass(appointment.startdate))
+    appointmentTemplate.classList.add(appointment.id)
+    let categoryClass = getCategoryColor(appointment.category)
+    appointmentTemplate.classList.add(categoryClass)
+    document.getElementById("week").appendChild(appointmentTemplate)
 }
 
 function checkstartIsEndHour(start, end){
-    let startZahl = parseInt(start)
-    let endZahl = parseInt(end)
-    if(startZahl == (endZahl-1) || endZahl == startZahl){
-        return true
-    }
-    return false
+    start = parseInt(start)
+    end = parseInt(end)
+    return (start == (end-1) || end == start)
 }
-
-// function setWholeTime(start, end,appointment){
-//     let startZahl = parseInt(start)
-//     let endZahl = parseInt(end)
-//     for (let i = startZahl; i < endZahl; i++){
-//         setNextHour(i, appointment, start, end)
-//     }
-// }
-
-// function setNextHour(hour, appointment, start, end){
-//     // let end = getHourOfTime(appointment.endtime)
-//     let isEnd = false
-//     let isStart = false
-//     if(hour == end){
-//         isEnd = true
-//     }
-//     if(hour == start){
-//         isStart = true
-//     }
-//     setRightTableElement(appointment, isStart, hour)
-// }
 
 function getHourOfTime (time){
     let help = cutTime(time)
@@ -138,24 +88,10 @@ function cutHour(time){
 }
 
 function getCategoryColor(category){
-    if(category == "Family"){
-        return "family"
-    }else if (category == "Friends"){
-        return "friends"
-    }else if (category == "Doctor") {
-        return "doctor"
-    }else if(category == "Sports") {
-        return "sports"
-    }else if(category == "Other"){
-        return "other"
-    }
+    return category.toLowerCase()
 }
 
-function getTableClass(day, time) {
-    return getFristClass(day)+getSecondClass(time)
-}
-
-function getFristClass(day) {
+function getDayClass(day) {
     let Day = new Date(day).getDay()
     if (Day == 0){
         return "Monday"
@@ -170,11 +106,11 @@ function getFristClass(day) {
     }else if(Day == 5){
         return "Saturday"
     }else if(Day == 6){
-        return "Sonnday"
+        return "Sunday"
     }
 }
 
-function getSecondClass(time) {
+function getLine(time) {
     let help = time.split(":")
     let number = parseInt(help[0])
     return classes[number]
@@ -209,11 +145,11 @@ function setLeftTable() {
 
 function setLeftTableElement(text, tableclass) {
     let template = document.getElementById("templateWeek").content
-    let copyHTML = document.importNode(template, true)
-    copyHTML.querySelector("#time").textContent = text
-    copyHTML.querySelector("#time").classList.add(tableclass)
-    copyHTML.querySelector("#time").classList.add("first")
-    document.getElementById("week").appendChild(copyHTML)
+    let timeTemplate = document.importNode(template, true).querySelector("#time")
+    timeTemplate.textContent = text
+    timeTemplate.classList.add(tableclass)
+    timeTemplate.classList.add("first")
+    document.getElementById("week").appendChild(timeTemplate)
 }
 
 function setWeekTable() {
@@ -227,15 +163,14 @@ function setDateInput(){
     dateInput.value = dateToString() 
 }
 
-function dateToString(){
+function (){
     let date
     if(dateInput.value == ""){
         date = new Date()
     }else{
         date = new Date(dateInput.value)
     }
-    let helpdate = date.toISOString()
-    let arrayDate = helpdate.split("T")
+    let arrayDate = date.toISOString().split("T")
     return arrayDate[0]
 }
 

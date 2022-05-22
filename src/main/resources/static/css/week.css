@@ -27,12 +27,11 @@
 }
 
 .one {
-    grid-column: 1;
+    grid-row: 1;
 }
 
 .two {
-   grid-row-start: 2;
-   grid-row-end: 3;
+   grid-row:2;
 }
 
 .three {
