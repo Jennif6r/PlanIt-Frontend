@@ -34,7 +34,7 @@ function getAppointments(date){
         appointments = JSON.parse(xhr.response)
         let number = Object.sizes(appointments)
         for (let i = 0; i<number; i++){
-            setRightTableElement(appointments[i])
+            setRightTableElement(appointments[i], false)
             setOptionAppointment(appointments[i])
         }
     }
@@ -48,32 +48,53 @@ function setOptionAppointment(appointment){
     appointmentChooser.add(option)
 }
 
-function setRightTableElement(appointment){
+function setRightTableElement(appointment, append){
     let template = document.getElementById("templateAppointment").content
     let appointmentTemplate = document.importNode(template, true).querySelector("#appointment")
     let tableclass
-    let start = getHourOfTime(appointment.starttime)
-    let end = getHourOfTime(appointment.endtime)
-
-    if(checkstartIsEndHour(start,end)){
-        tableclass = getLine(appointment.starttime)
-        appointmentTemplate.classList.add("start")
-        appointmentTemplate.classList.add(tableclass)
+    let start = parseInt(getHourOfTime(appointment.starttime))
+    let end = parseInt(getHourOfTime(appointment.endtime))
+    if (checkDayChange(appointment.startdate, appointment.enddate)){
+       if(append){
+           appointmentTemplate.style["border-top-left-radius"] = 0
+           appointmentTemplate.style["border-top-right-radius"] = 0
+           appointmentTemplate.style["grid-row-start"] = 1
+           appointmentTemplate.style["grid-row-end"] = ++end
+           appointmentTemplate.classList.add(getDayClass(appointment.enddate))
+        }else{
+            appointmentTemplate.style["grid-row-start"] = ++start
+            appointmentTemplate.style["grid-row-end"] = 25
+            appointmentTemplate.style["border-bottom-left-radius"] = 0
+            appointmentTemplate.style["border-bottom-right-radius"] = 0
+            appointmentTemplate.classList.add(getDayClass(appointment.startdate))
+            setRightTableElement(appointment, true)
+        } 
     }else{
-        appointmentTemplate.style["grid-row-start"] = ++start
-        appointmentTemplate.style["grid-row-end"] = ++end
+        if(checkstartIsEndHour(start,end)){
+            tableclass = getLine(appointment.starttime)
+            appointmentTemplate.classList.add("start")
+            appointmentTemplate.classList.add(tableclass)
+        }else{
+            appointmentTemplate.style["grid-row-start"] = ++start
+            appointmentTemplate.style["grid-row-end"] = ++end
+        }
+        appointmentTemplate.classList.add(getDayClass(appointment.startdate))
     }
+
     appointmentTemplate.textContent = cutTime(appointment.starttime )+ "-" + cutTime(appointment.endtime) + " \n " + appointment.title
-    appointmentTemplate.classList.add(getDayClass(appointment.startdate))
     appointmentTemplate.classList.add(appointment.id)
     let categoryClass = getCategoryColor(appointment.category)
     appointmentTemplate.classList.add(categoryClass)
     document.getElementById("week").appendChild(appointmentTemplate)
 }
 
+function checkDayChange(start, end){
+    return (start !== end)
+}
+
 function checkstartIsEndHour(start, end){
-    start = parseInt(start)
-    end = parseInt(end)
+    // start = parseInt(start)
+    // end = parseInt(end)
     return (start == (end-1) || end == start)
 }
 
@@ -94,19 +115,19 @@ function getCategoryColor(category){
 function getDayClass(day) {
     let Day = new Date(day).getDay()
     if (Day == 0){
-        return "Monday"
-    }else if(Day == 1){
-        return "Thuesday"
-    }else if(Day == 2){
-        return "Wednesday"
-    }else if(Day == 3){
-        return "Thursday "
-    }else if(Day == 4){
-        return "Friday"
-    }else if(Day == 5){
-        return "Saturday"
-    }else if(Day == 6){
         return "Sunday"
+    }else if(Day == 1){
+        return "Monday"
+    }else if(Day == 2){
+        return "Thuesday"
+    }else if(Day == 3){
+        return "Wednesday"
+    }else if(Day == 4){
+        return "Thursday "
+    }else if(Day == 5){
+        return "Friday"
+    }else if(Day == 6){
+        return "Saturday"
     }
 }
 
@@ -163,7 +184,7 @@ function setDateInput(){
     dateInput.value = dateToString() 
 }
 
-function (){
+function dateToString(){
     let date
     if(dateInput.value == ""){
         date = new Date()
@@ -177,7 +198,7 @@ function (){
 function deleteAppointment(){
     let appointmentId = document.getElementById("appointmentChooser").value
     let appointmentIndex = document.getElementById("appointmentChooser").selectedIndex
-    let appointment = getAppointmentFromId(appointmentId)
+    // let appointment = getAppointmentFromId(appointmentId)
     let data = new FormData();
     data.append('test', "test");
 

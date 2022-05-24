@@ -1,29 +1,29 @@
 .Monday {
-    grid-column: 1/2;
-}
-
-.Thuesday {
     grid-column: 2/3;
 }
 
-.Wednesday{
+.Thuesday {
     grid-column: 3/4;
 }
 
+.Wednesday{
+    grid-column:  4/5;
+}
+
 .Thursday {
-    grid-column: 4/5;
+    grid-column:5/6;
 }
 
 .Friday {
-    grid-column: 5/6;
-}
-
-.Saturday {
     grid-column: 6/7;
 }
 
-.Sunday {
+.Saturday {
     grid-column: 7/8;
+}
+
+.Sunday {
+    grid-column: 8/9;
 }
 
 .one {
