@@ -93,7 +93,6 @@ public class PlanItController {
 	@RequestMapping(method=RequestMethod.POST, value="/newWeek")
 	public String getAppointmentModelsInOtherWeek(@ModelAttribute("direction") String direction, @ModelAttribute("date") String date){
 		if (direction.equals("before")){
-//			return "before";
 			return Calendar.getDayOfWeekBefore(date);
 		}else if(direction.equals("after")){
 			return Calendar.getDayofWeekAfter(date);

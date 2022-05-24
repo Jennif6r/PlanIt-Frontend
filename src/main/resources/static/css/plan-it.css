@@ -65,6 +65,16 @@ p {
   grid-row: 1;
 }
 
+.end{
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.start{
+  border-top-left-radius: 20px;
+  border-top-right-radius:20px;
+}
+
 /* to set the table for the week overview */
 .divWeek {
   display: grid;
@@ -934,7 +944,7 @@ p {
 #appointment {
   text-align: left;
   padding: 10%;
-  border-radius: 20px;
+  /* border-radius: ; */
   
 }
 

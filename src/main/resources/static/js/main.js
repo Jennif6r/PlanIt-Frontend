@@ -34,7 +34,8 @@ function getAppointments(date){
         appointments = JSON.parse(xhr.response)
         let number = Object.sizes(appointments)
         for (let i = 0; i<number; i++){
-            setRightTableElement(appointments[i])
+            checkLongerOneHour(appointments[i])
+            // (appointments[i], false, false, 0)
             setOptionAppointment(appointments[i])
         }
     }
@@ -48,16 +49,75 @@ function setOptionAppointment(appointment){
     appointmentChooser.add(option)
 }
 
-function setRightTableElement(appointment){
-    let tableclass = getTableClass(appointment.startdate, appointment.starttime)
+function setRightTableElement(appointment, isStart, end, iteration){
     let template = document.getElementById("templateAppointment").content
     let copyHTML = document.importNode(template, true)
-    copyHTML.querySelector("#appointment").textContent = cutTime(appointment.starttime )+ "-" + cutTime(appointment.endtime) + " \n " + appointment.title
-    copyHTML.querySelector("#appointment").classList.add(tableclass)
+    let tableclass
+    if(!isStart){
+        tableclass = getTableClass(appointment.startdate, iteration)
+        copyHTML.querySelector("#appointment").textContent = " "
+    }else{
+        tableclass = getTableClass(appointment.startdate, appointment.starttime)
+        copyHTML.querySelector("#appointment").classList.add("start")
+        copyHTML.querySelector("#appointment").textContent = cutTime(appointment.starttime )+ "-" + cutTime(appointment.endtime) + " \n " + appointment.title
+    }
+    if(end){
+        copyHTML.querySelector("#appointment").classList.add("end")
+    }
     copyHTML.querySelector("#appointment").classList.add(appointment.id)
+    copyHTML.querySelector("#appointment").classList.add(tableclass)
     let categoryClass = getCategoryColor(appointment.category)
     copyHTML.querySelector("#appointment").classList.add(categoryClass)
     document.getElementById("week").appendChild(copyHTML)
+}
+
+function checkLongerOneHour(appointment){
+    let start = getHourOfTime(appointment.starttime)
+    let end = getHourOfTime(appointment.endtime)
+    if(checkstartIsEndHour(start,end)){
+        setRightTableElement(appointment, true, true, 0)
+    }else{
+        setWholeTime(start, end, appointment)
+    }
+}
+
+function checkstartIsEndHour(start, end){
+    let startZahl = parseInt(start)
+    let endZahl = parseInt(end)
+    if(startZahl == (endZahl-1) || endZahl == startZahl){
+        return true
+    }
+    return false
+}
+
+function setWholeTime(start, end,appointment){
+    for (let i = start; i < end; i++){
+        setNextHour(i, appointment, start, end)
+    }
+}
+
+function setNextHour(hour, appointment, start, end){
+    // console.log(appointment.endtime)
+    // let end = getHourOfTime(appointment.endtime)
+    let isEnd = false
+    let isStart = false
+    if(hour == end){
+        isEnd = true
+    }
+    if(hour == start){
+        isStart = true
+    }
+    (appointment, isStart, isEnd, hour)
+}
+
+function getHourOfTime (time){
+    let help = cutTime(time)
+    return cutHour(help)
+}
+
+function cutHour(time){
+    let help = time.split(":")
+    return help[0]
 }
 
 function getCategoryColor(category){
@@ -205,7 +265,9 @@ function emptyWeekTable(){
 function removeRightTableElement(appointmentId){
     let div = document.getElementById("week")
     let element = document.getElementsByClassName(appointmentId)
-    div.removeChild(element[0])
+    if(element.length != 0){
+        div.removeChild(element[0])
+    }
 }
 
 function removeOptionAppointment(appointmentId){
