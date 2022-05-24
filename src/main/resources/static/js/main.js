@@ -93,8 +93,6 @@ function checkDayChange(start, end){
 }
 
 function checkstartIsEndHour(start, end){
-    // start = parseInt(start)
-    // end = parseInt(end)
     return (start == (end-1) || end == start)
 }
 
@@ -325,10 +323,3 @@ Object.sizes = function(obj){
     }
     return size;
 }
-
-// var style = document.createElement('style');
-// style.type="text/css";
-// style.innerHTML = '.cssClass { color: #F00; }';
-// document.getElementsByTagName('head')[0].appendChild(style);
-
-// document.getElementById('time').className="cssClass";
