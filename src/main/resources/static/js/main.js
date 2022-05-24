@@ -121,7 +121,7 @@ function getDayClass(day) {
     }else if(Day == 3){
         return "Wednesday"
     }else if(Day == 4){
-        return "Thursday "
+        return "Thursday"
     }else if(Day == 5){
         return "Friday"
     }else if(Day == 6){
@@ -196,7 +196,6 @@ function dateToString(){
 function deleteAppointment(){
     let appointmentId = document.getElementById("appointmentChooser").value
     let appointmentIndex = document.getElementById("appointmentChooser").selectedIndex
-    // let appointment = getAppointmentFromId(appointmentId)
     let data = new FormData();
     data.append('test', "test");
 
