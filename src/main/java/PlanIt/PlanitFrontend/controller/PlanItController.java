@@ -79,8 +79,7 @@ public class PlanItController {
 	public AppointmentModel editAppointment( @RequestBody AppointmentModel appointment) {
 		if (appointment.checkCorrectness()) {
 			try {
-				fpm.deleteAppointmentModel(appointment.getId());
-				fpm.add(appointment);
+				fpm.updateAppointment(appointment);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
