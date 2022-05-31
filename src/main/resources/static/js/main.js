@@ -252,9 +252,6 @@ function removeRightTableElement(appointmentId){
         console.log(element[i])
         div.removeChild(element[0])
     }
-    // if(element.length != 0){
-    //     div.removeChild(element[0])
-    // }
 }
 
 function removeOptionAppointment(appointmentId){
