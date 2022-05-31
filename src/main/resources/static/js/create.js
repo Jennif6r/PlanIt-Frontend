@@ -14,7 +14,6 @@ document.getElementById("editAppointment").addEventListener("click", editAppoint
 
 function createEvent() {
     readInput();
-    // checkCorrectnessCreate();
     sendRequest();
 }
 

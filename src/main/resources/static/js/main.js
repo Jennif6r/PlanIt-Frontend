@@ -1,7 +1,7 @@
-"use strict";
+"use strict"
 let classes = ["one", "two" , "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourtheen", "fiveteen", "sixteen", "seventeen", "eightteen", "nineteen", "twenty", "twentyone", "twentytwo", "twentythree", "twentyfour"]
-let timeperiod;
-let url;
+let timeperiod
+let url
 let appointments = new Object()
 let appointmentChooser = document.getElementById("appointmentChooser")
 let dateInput = document.getElementById("datePicker")
@@ -12,7 +12,7 @@ setWeekTable()
 setWeekOnView()
 
 
-document.getElementById("table").style.display = "none";
+document.getElementById("table").style.display = "none"
 dateInput.addEventListener("change", changeDate)
 document.getElementById("delete").addEventListener("click", deleteAppointment)
 document.getElementById("weekBefore").addEventListener("click", weekBefore)
@@ -55,12 +55,12 @@ function setRightTableElement(appointment, append){
     let start = parseInt(getHourOfTime(appointment.starttime))
     let end = parseInt(getHourOfTime(appointment.endtime))
     if (checkDayChange(appointment.startdate, appointment.enddate)){
-       if(append){
-           appointmentTemplate.style["border-top-left-radius"] = 0
-           appointmentTemplate.style["border-top-right-radius"] = 0
-           appointmentTemplate.style["grid-row-start"] = 1
-           appointmentTemplate.style["grid-row-end"] = ++end
-           appointmentTemplate.classList.add(getDayClass(appointment.enddate))
+        if(append){
+            appointmentTemplate.style["border-top-left-radius"] = 0
+            appointmentTemplate.style["border-top-right-radius"] = 0
+            appointmentTemplate.style["grid-row-start"] = 1
+            appointmentTemplate.style["grid-row-end"] = ++end
+            appointmentTemplate.classList.add(getDayClass(appointment.enddate))
         }else{
             appointmentTemplate.style["grid-row-start"] = ++start
             appointmentTemplate.style["grid-row-end"] = 25
@@ -246,9 +246,15 @@ function emptyWeekTable(){
 function removeRightTableElement(appointmentId){
     let div = document.getElementById("week")
     let element = document.getElementsByClassName(appointmentId)
-    if(element.length != 0){
+    console.log(element)
+    let length = Object.sizes(element)
+    for (let i = 0; i<length;i++){
+        console.log(element[i])
         div.removeChild(element[0])
     }
+    // if(element.length != 0){
+    //     div.removeChild(element[0])
+    // }
 }
 
 function removeOptionAppointment(appointmentId){
