@@ -50,3 +50,7 @@ input {
     color: red;
     font-size: 400%;
 }
+
+.error {
+    color: red;
+}

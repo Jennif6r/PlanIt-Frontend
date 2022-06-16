@@ -76,7 +76,7 @@ function setRightTableElement(appointment, append){
             appointmentTemplate.classList.add(tableclass)
         }else{
             appointmentTemplate.style["grid-row-start"] = ++start
-            appointmentTemplate.style["grid-row-end"] = ++end
+            appointmentTemplate.style["grid-row-end"] = end+2
         }
         appointmentTemplate.classList.add(getDayClass(appointment.startdate))
     }
