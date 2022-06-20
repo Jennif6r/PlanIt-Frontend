@@ -7,7 +7,7 @@ There are three different ways to install our application. For all it's required
 
 ### Jar File
 For the first you only need to download the executable jar from [here](https://github.com/Jennif6r/PlanIt-Frontend/raw/main/Planit-Frontend-0.0.1-SNAPSHOT.jar).  <br>
-Then navigate in that directory and run: ``java -jar Planit-Frontend-0.0.1-SNAPSHOT.jar``. <br> If you don't want to run the jar file by hand, you could use the [sript](https://raw.githubusercontent.com/Jennif6r/PlanIt-Frontend/main/StartApplication.sh). Just put it in the same directory, change the fileending to ``.bat`` and start it. 
+Then navigate in that directory and run: ``java -jar Planit-Frontend-0.0.1-SNAPSHOT.jar``. <br> If you don't want to run the jar file by hand, you could use the [sript](https://raw.githubusercontent.com/Jennif6r/PlanIt-Frontend/main/StartApplication.bat). Just put it in the same directory, change the fileending to ``.bat`` and start it. 
 
 If you get the error message shown below, you have to shut down the process on the port 9001 or use the installation gide for maven. 
 ![error]
